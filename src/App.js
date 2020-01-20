@@ -1,50 +1,77 @@
 import React from 'react';
-import { Button, Divider, Grid, Container, Input, Form, Checkbox } from 'semantic-ui-react';
+import { Button, Divider, Grid, Container, Input, Form, Checkbox, Segment } from 'semantic-ui-react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import BannerComponent from "./components/Banner";
 import Subbanner from './components/subbanner';
+import Footer from './components/footer';
+import ButtonsGrid from './components/buttons_grid';
 
 function App() {
   return (
     <div className="App">
       <BannerComponent></BannerComponent>
       <Subbanner></Subbanner>
-      <div>
-        <Grid columns={3}>
-          <Grid.Row>
-            <Grid.Column>
-            </Grid.Column>
-            <Grid.Column>
-              Introduce tu correo <br />
-              <Input size="big" placeholder='Email' /><br />
-              Introduce tu contraseña <br />
-              <Input size="big" placeholder='Password...' /><br />
-              <Divider />
-              <Button size="large" color="pink" content="Entrar"></Button>
-              <Form>
-                <Form.Field>
-                  <label>First Name</label>
-                  <input placeholder='First Name' />
-                </Form.Field>
-                <Form.Field>
-                  <label>Last Name</label>
-                  <input placeholder='Last Name' />
-                </Form.Field>
-                <Form.Field>
-                  <Checkbox label='I agree to the Terms and Conditions' />
-                </Form.Field>
-                <Button type='submit'>Submit</Button>
-              </Form>
-            </Grid.Column>
-            <Grid.Column>
+        <div>
+          <Grid columns={3}>
+            <Grid.Row>
+              <Grid.Column>
+              </Grid.Column>
+              <Grid.Column>
+                <Form>
+                  <Form.Field>
+                    <label>Escribe tu correo</label>
+                    <input placeholder='e-mail' />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Escribe tu contraseña</label>
+                    <input placeholder='contraseña' />
+                  </Form.Field>
+                  <Form.Field>
+                  </Form.Field>
+                  <Button size="large" color="pink" content="Entrar"></Button>
+                </Form>
+              </Grid.Column>
+              <Grid.Column>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <div>
+     
+        <Router>
+          <ul>
+            <li>
+              <Link to="/adminhome">Administrador</Link>
+              {/* esto crea la ruta */}
+            </li>
+          </ul>
+          {/* <Route path="./pages/adminhome" component={Adminhome} /> */}
+          {/* esto me dice que componente mostrar */}
+        </Router>
 
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <Segment/>
       </div>
+          <Footer></Footer>
+          {/* //  Aqui empieza la pagina de admin home */}
+
+          <BannerComponent></BannerComponent>
+          <Subbanner></Subbanner>
+          <ButtonsGrid></ButtonsGrid>      
+         <Footer></Footer>
+         <Divider/>
+        </div>
     </div>
 
 
-  );
-}
-export default App;
- 
+
+
+
+
+      );
+    }
+    export default App;

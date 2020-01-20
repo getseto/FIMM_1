@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Segment,Icon,Header } from "semantic-ui-react";
+import { Grid, Segment,Icon,Header, Input } from "semantic-ui-react";
 
 
 const Subbanner = () => {
@@ -16,8 +16,10 @@ const Subbanner = () => {
       </Grid.Column>
       <Grid.Column>
       <Icon.Group as="h1" size='large'>
-      <Icon name="search" /> Buscar
+      <Icon name="search" /> Buscar 
+      <Input size="mini" placeholder='Buscar...' />
     </Icon.Group>
+    
       </Grid.Column>
       <Grid.Column>
       <Icon.Group as="h1" size='large'>
