@@ -11,6 +11,7 @@ import BannerComponent from "./components/Banner";
 import Subbanner from './components/subbanner';
 import Footer from './components/footer';
 import ButtonsGrid from './components/buttons_grid';
+import { logIn } from './firebase';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
                   </Form.Field>
                   <Form.Field>
                   </Form.Field>
-                  <Button size="large" color="pink" content="Entrar"></Button>
+                  <Button size="large" color="pink" content="Entrar" onClick={logIn}></Button>
                 </Form>
               </Grid.Column>
               <Grid.Column>
