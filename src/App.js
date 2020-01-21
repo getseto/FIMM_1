@@ -35,7 +35,7 @@ function App() {
                   </Form.Field>
                   <Form.Field>
                   </Form.Field>
-                  <Button size="large" color="pink" content="Entrar" onClick={logIn}></Button>
+                  <Button size="large" color="pink" content="Inicia sesión con Google" onClick={logIn}></Button>
                 </Form>
               </Grid.Column>
               <Grid.Column>
