@@ -21,13 +21,13 @@ export const getUser = () => {
 }
 export const logIn = (history) => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
         localStorage.setItem('accessToken', JSON.stringify(result.credential.accessToken));
         localStorage.setItem('idToken', JSON.stringify(result.credential.idToken));
         localStorage.setItem('user', JSON.stringify(result.user));
         history.push('/table')
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.error(error);
     });
 }

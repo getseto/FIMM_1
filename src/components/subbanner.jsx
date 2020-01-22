@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Segment, Icon, Header, Input } from "semantic-ui-react";
+import { Grid, Segment, Icon, Input } from "semantic-ui-react";
 
 
 const Subbanner = () => {
