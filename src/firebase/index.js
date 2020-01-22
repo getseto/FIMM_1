@@ -11,25 +11,31 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+export const initFirebase = () => {
+    console.log('getse')
+    firebase.initializeApp(firebaseConfig);
+}
+
 export const getUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 }
-export const logIn = () => {
-    firebase.initializeApp(firebaseConfig);
+export const logIn = (history) => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result) {
         localStorage.setItem('accessToken', JSON.stringify(result.credential.accessToken));
         localStorage.setItem('idToken', JSON.stringify(result.credential.idToken));
         localStorage.setItem('user', JSON.stringify(result.user));
+        history.push('/table')
+
     }).catch(function(error) {
         console.error(error);
     });
 }
-export const logOut = () => {
+export const logOut = (history) => {
     localStorage.clear();
+    history.push('/login')
 }
 export const getEvents = () => {
-    firebase.initializeApp(firebaseConfig);
     const query = firebase.firestore().collection('/event')
 
     query.onSnapshot((snapshot) => {

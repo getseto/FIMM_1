@@ -1,78 +1,44 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Divider, Grid, Container, Input, Form, Checkbox, Segment } from 'semantic-ui-react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory,
 } from "react-router-dom";
 
 import BannerComponent from "./components/Banner";
 import Subbanner from './components/subbanner';
 import Footer from './components/footer';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 import ButtonsGrid from './components/buttons_grid';
-import { logIn } from './firebase';
+import { logIn, logOut, initFirebase } from './firebase';
+import LogOut from './components/LogOut';
 
+function Login() {
+  const history = useHistory();
+  return <Button size="large" icon="google" color="pink" content="Haz login con Google" onClick={() => logIn(history)}></Button>
+} 
 function App() {
+  useEffect(() => {
+    initFirebase()
+  })
   return (
-    <div className="App">
-      <BannerComponent></BannerComponent>
-      <Subbanner></Subbanner>
-        <div>
-          <Grid columns={3}>
-            <Grid.Row>
-              <Grid.Column>
-              </Grid.Column>
-              <Grid.Column>
-                <Form>
-                  <Form.Field>
-                    <label>Escribe tu correo</label>
-                    <input placeholder='e-mail' />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Escribe tu contraseña</label>
-                    <input placeholder='contraseña' />
-                  </Form.Field>
-                  <Form.Field>
-                  </Form.Field>
-                  <Button size="large" color="pink" content="Inicia sesión con Google" onClick={logIn}></Button>
-                </Form>
-              </Grid.Column>
-              <Grid.Column>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <div>
-     
-        <Router>
-          <ul>
-            <li>
-              <Link to="/adminhome">Administrador</Link>
-              {/* esto crea la ruta */}
-            </li>
-          </ul>
-          {/* <Route path="./pages/adminhome" component={Adminhome} /> */}
-          {/* esto me dice que componente mostrar */}
-        </Router>
+    <Router>
+      <BannerComponent />
+      <Switch>
+        <PublicRoute path="/login">
+          <Login />
+        </PublicRoute>
+        <PrivateRoute path="/table">
+          <LogOut />
+        </PrivateRoute>
+      </Switch>
+      <Footer/>
+    </Router>
 
-        <Segment/>
-      </div>
-          <Footer></Footer>
-          {/* //  Aqui empieza la pagina de admin home */}
-
-          <BannerComponent></BannerComponent>
-          <Subbanner></Subbanner>
-          <ButtonsGrid></ButtonsGrid>      
-         <Footer></Footer>
-         <Divider/>
-        </div>
-    </div>
-
-
-
-
-
-
-      );
-    }
-    export default App;
+  );
+}
+export default App;
