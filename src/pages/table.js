@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Checkbox, Icon, Table, Segment, Form } from 'semantic-ui-react';
-import logo from './logo.svg';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 
-function DataTable() {
+function Table() {
   return (
     <Segment>
       <Table compact celled definition>
@@ -86,4 +85,4 @@ function DataTable() {
 
 }
 
-export default DataTable;
+export default Table;
