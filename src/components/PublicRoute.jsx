@@ -4,22 +4,22 @@ import { getUser } from '../firebase';
 
 
 function PublicRoute({ children, ...rest }) {
-    return (
-      <Route
-        {...rest}
-        render={() =>
-            !getUser() ? (
-            children
-          ) : (
+  return (
+    <Route
+      {...rest}
+      render={() =>
+        !getUser() ? (
+          children
+        ) : (
             <Redirect
               to={{
                 pathname: "/table",
               }}
             />
           )
-        }
-      />
-    );
-  }
+      }
+    />
+  );
+}
 
 export default PublicRoute;
