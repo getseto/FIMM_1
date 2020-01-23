@@ -12,6 +12,8 @@ import PublicRoute from './components/PublicRoute';
 import { initFirebase } from './firebase';
 import LogOut from './components/LogOut';
 import LogIn from './components/LogIn';
+import DataTable from './pages/table';
+import './App.css';
 
 function App() {
   useEffect(() => {
@@ -19,16 +21,19 @@ function App() {
   })
   return (
     <Router>
-      <BannerComponent />
-      <Switch>
-        <PublicRoute path="/login">
-          <LogIn />
-        </PublicRoute>
-        <PrivateRoute path="/table">
-          <Subbanner />
-          <LogOut />
-        </PrivateRoute>
-      </Switch>
+      <div>
+        <BannerComponent />
+        <Switch>
+          <PublicRoute path="/login">
+            <LogIn />
+          </PublicRoute>
+          <PrivateRoute path="/table">
+            <Subbanner />
+            <DataTable />
+            <LogOut />
+          </PrivateRoute>
+        </Switch>
+      </div>
       <Footer />
     </Router>
 

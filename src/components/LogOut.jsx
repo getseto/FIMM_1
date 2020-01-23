@@ -6,7 +6,7 @@ import { logOut } from '../firebase';
 const LogOut = () => {
   const history = useHistory();
   return (
-    <Button size="large" basic color="pink" content="Logout" onClick={() => logOut(history)}></Button>
+    <Button size="large" basic color="pink" content="LogOut" onClick={() => logOut(history)}></Button>
   )
 }
 export default LogOut;
