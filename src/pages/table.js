@@ -95,11 +95,7 @@ const DataTable = (props) => {
                 size='small'
               >
                 <Icon name='save' /> Guardar
-          </Button>
-              <Button size='small'> </Button>
-              <Button disabled size='small'>
-                Approve All
-          </Button>
+              </Button>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
