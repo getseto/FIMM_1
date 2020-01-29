@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch
@@ -16,9 +16,7 @@ import DataTable from './pages/table';
 import './App.css';
 
 function App() {
-  useEffect(() => {
-    initFirebase()
-  })
+  let firebaseApp = initFirebase()
   return (
     <Router>
       <div>
@@ -29,7 +27,7 @@ function App() {
           </PublicRoute>
           <PrivateRoute path="/table">
             <Subbanner />
-            <DataTable />
+            <DataTable firebaseApp={firebaseApp} />
             <LogOut />
           </PrivateRoute>
         </Switch>

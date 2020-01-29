@@ -11,9 +11,9 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+
 export const initFirebase = () => {
-    console.log('getse')
-    firebase.initializeApp(firebaseConfig);
+    return firebase.initializeApp(firebaseConfig);
 }
 
 export const getUser = () => {
@@ -35,10 +35,40 @@ export const logOut = (history) => {
     localStorage.clear();
     history.push('/login')
 }
-export const getEvents = () => {
-    const query = firebase.firestore().collection('/event')
+export const getEvents = async (firebaseApp) => {
+    if (!firebaseApp) {
+        return
+    }
+    const query = firebaseApp.firestore().collection('/event')
+    const snapshot = await query.get()
+    const events = snapshot.docs.map(
+        doc => doc.data()
+    )
+    return events;
+}
 
-    query.onSnapshot((snapshot) => {
-        return snapshot;
-    })
+export const getAssistantsForEvent = async (firebaseApp, eventId = 'E92jBGTqn1DhuT26w2Qj') => {
+    if (!firebaseApp) {
+        return
+    }
+    const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    const snapshot = await query.get()
+    return snapshot.docs.map(
+        doc => doc.data()
+    )
+}
+export const saveEvent = (event) => {
+    const query = firebase.firestore().collection('/event')
+    query.add(event)
+}
+export const updateEvent = (eventId, eventData) => {
+    const query = firebase.firestore().collection('/event').doc(eventId)
+    query.set(eventData)
+  }
+export const user = getUser();
+
+export const editAssistant = (firebaseApp, assistant, eventId) => {
+    const ref = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.curp);
+    console.log(ref)
+    console.log(ref.update(assistant))
 }
