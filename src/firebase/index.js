@@ -11,6 +11,11 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+export const initFirebase = () => {
+    console.log('getse')
+    firebase.initializeApp(firebaseConfig);
+}
+
 export const getUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 }
@@ -29,7 +34,6 @@ export const logOut = () => {
     localStorage.clear();
 }
 export const getEvents = () => {
-    firebase.initializeApp(firebaseConfig);
     const query = firebase.firestore().collection('/event')
 
     query.onSnapshot((snapshot) => {

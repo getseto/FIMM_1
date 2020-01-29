@@ -1,5 +1,4 @@
-import React from 'react';
-import { Button, Divider, Grid, Container, Input, Form, Checkbox, Segment } from 'semantic-ui-react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,48 +13,23 @@ import ButtonsGrid from './components/buttons_grid';
 import { logIn } from './firebase';
 
 function App() {
+  useEffect(() => {
+    initFirebase()
+  })
   return (
-    <div className="App">
-      <BannerComponent></BannerComponent>
-      <Subbanner></Subbanner>
-        <div>
-          <Grid columns={3}>
-            <Grid.Row>
-              <Grid.Column>
-              </Grid.Column>
-              <Grid.Column>
-                <Form>
-                  <Form.Field>
-                    <label>Escribe tu correo</label>
-                    <input placeholder='e-mail' />
-                  </Form.Field>
-                  <Form.Field>
-                    <label>Escribe tu contraseña</label>
-                    <input placeholder='contraseña' />
-                  </Form.Field>
-                  <Form.Field>
-                  </Form.Field>
-                  <Button size="large" color="pink" content="Inicia sesión con Google" onClick={logIn}></Button>
-                </Form>
-              </Grid.Column>
-              <Grid.Column>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <div>
-     
-        <Router>
-          <ul>
-            <li>
-              <Link to="/adminhome">Administrador</Link>
-              {/* esto crea la ruta */}
-            </li>
-          </ul>
-          {/* <Route path="./pages/adminhome" component={Adminhome} /> */}
-          {/* esto me dice que componente mostrar */}
-        </Router>
-
-        <Segment/>
+    <Router>
+      <div>
+        <BannerComponent />
+        <Switch>
+          <PublicRoute path="/login">
+            <LogIn />
+          </PublicRoute>
+          <PrivateRoute path="/table">
+            <Subbanner />
+            <DataTable />
+            <LogOut />
+          </PrivateRoute>
+        </Switch>
       </div>
           <Footer></Footer>
           {/* //  Aqui empieza la pagina de admin home */}
