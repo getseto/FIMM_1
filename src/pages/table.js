@@ -15,7 +15,7 @@ const TableRow = ({ assistant, eventId, firebase }) => {
     !isEditable ? (
       <Table.Row>
         <Table.Cell collapsing>
-          <Checkbox slider />
+          <Checkbox slider onChange={(event, {checked}) => { editAssistant(firebase, {...formData, attended:checked}, eventId)}} />
         </Table.Cell>
         <Table.Cell>{formData.firstName}</Table.Cell>
         <Table.Cell>{formData.lastName}</Table.Cell>
@@ -30,9 +30,7 @@ const TableRow = ({ assistant, eventId, firebase }) => {
         <Table.Cell collapsing>
           <Checkbox slider />
         </Table.Cell>
-        <Table.Cell>
-  
-          <Input name="firstName" defaultValue={formData.firstName} onChange={handleChange}/></Table.Cell>
+        <Table.Cell><Input name="firstName" defaultValue={formData.firstName} onChange={handleChange}/></Table.Cell>
         <Table.Cell><Input name="lastName" value={formData.lastName} onChange={handleChange}/></Table.Cell>
         <Table.Cell><Input name="curp" value={formData.curp} onChange={handleChange}/></Table.Cell>
         <Table.Cell><Input name="phone" value={formData.phone} onChange={handleChange}/></Table.Cell>
