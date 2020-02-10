@@ -74,7 +74,7 @@ const DataTable = (props) => {
             assistants.map((assistant, index) => {
               // mandar eventID como prop a este componente (DataTable)
               return (
-                <TableRow key={assistant.curp+index} assistant={assistant} eventId={'E92jBGTqn1DhuT26w2Qj'} firebase={props.firebaseApp}/>
+                <TableRow key={assistant.id+index} assistant={assistant} eventId={'E92jBGTqn1DhuT26w2Qj'} firebase={props.firebaseApp}/>
               )
             })
           }
