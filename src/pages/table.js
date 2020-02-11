@@ -15,7 +15,7 @@ const TableRow = ({ assistant, eventId, firebase }) => {
     !isEditable ? (
       <Table.Row>
         <Table.Cell collapsing>
-          <Checkbox slider onChange={(event, {checked}) => { editAssistant(firebase, {...formData, attended:checked}, eventId)}} />
+          <Checkbox slider defaultChecked={formData.attended} onChange={(event, { checked }) => { editAssistant(firebase, { ...formData, attended: checked }, eventId) }} />
         </Table.Cell>
         <Table.Cell>{formData.firstName}</Table.Cell>
         <Table.Cell>{formData.lastName}</Table.Cell>
@@ -26,22 +26,22 @@ const TableRow = ({ assistant, eventId, firebase }) => {
         <Table.Cell><button className="ui button" onClick={() => setIsEditable(true)}>Editar</button></Table.Cell>
       </Table.Row>
     ) : (
-      <Table.Row>
-        <Table.Cell collapsing>
-          <Checkbox slider />
-        </Table.Cell>
-        <Table.Cell><Input name="firstName" defaultValue={formData.firstName} onChange={handleChange}/></Table.Cell>
-        <Table.Cell><Input name="lastName" value={formData.lastName} onChange={handleChange}/></Table.Cell>
-        <Table.Cell><Input name="curp" value={formData.curp} onChange={handleChange}/></Table.Cell>
-        <Table.Cell><Input name="phone" value={formData.phone} onChange={handleChange}/></Table.Cell>
-        <Table.Cell><Input name="cellphone" value={formData.cellphone} onChange={handleChange}/></Table.Cell>
-        <Table.Cell><Input name="email" value={formData.email} onChange={handleChange}/></Table.Cell>
-        <Table.Cell>
-          <button type="submit" className="ui button" onClick={() => {editAssistant(firebase, formData, eventId); setIsEditable(false)}}>Guardar</button><button className="ui button" onClick={() => setIsEditable(false)}>Cancelar</button>
-        </Table.Cell>
-      </Table.Row>
-    )
-    )
+        <Table.Row>
+          <Table.Cell collapsing>
+            <Checkbox slider />
+          </Table.Cell>
+          <Table.Cell><Input name="firstName" defaultValue={formData.firstName} onChange={handleChange} /></Table.Cell>
+          <Table.Cell><Input name="lastName" value={formData.lastName} onChange={handleChange} /></Table.Cell>
+          <Table.Cell><Input name="curp" value={formData.curp} onChange={handleChange} /></Table.Cell>
+          <Table.Cell><Input name="phone" value={formData.phone} onChange={handleChange} /></Table.Cell>
+          <Table.Cell><Input name="cellphone" value={formData.cellphone} onChange={handleChange} /></Table.Cell>
+          <Table.Cell><Input name="email" value={formData.email} onChange={handleChange} /></Table.Cell>
+          <Table.Cell>
+            <button type="submit" className="ui button" onClick={() => { editAssistant(firebase, formData, eventId); setIsEditable(false) }}>Guardar</button><button className="ui button" onClick={() => setIsEditable(false)}>Cancelar</button>
+          </Table.Cell>
+        </Table.Row>
+      )
+  )
 }
 
 const DataTable = (props) => {
@@ -74,7 +74,7 @@ const DataTable = (props) => {
             assistants.map((assistant, index) => {
               // mandar eventID como prop a este componente (DataTable)
               return (
-                <TableRow key={assistant.id+index} assistant={assistant} eventId={'E92jBGTqn1DhuT26w2Qj'} firebase={props.firebaseApp}/>
+                <TableRow key={assistant.id + index} assistant={assistant} eventId={'E92jBGTqn1DhuT26w2Qj'} firebase={props.firebaseApp} />
               )
             })
           }
