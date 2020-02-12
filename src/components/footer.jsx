@@ -8,7 +8,7 @@ const Footer = () => {
             <Grid divided="vertically">
                 <Grid.Row columns={3}>
                     <Grid.Column textAlign='center'>
-                        <font color="#1e636d"> <p> 2020- ZapAcademy</p> </font>
+                        <font color="#1e636d"> <p> 2020 - ZapAcademy</p> </font>
                     </Grid.Column>
                     <Grid.Column>
                         
