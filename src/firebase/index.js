@@ -69,6 +69,4 @@ export const user = getUser();
 
 export const editAssistant = (firebaseApp, assistant, eventId) => {
     const ref = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.id);
-    console.log(ref)
-    console.log(ref.update(assistant))
 }
