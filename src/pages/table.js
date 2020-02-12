@@ -37,7 +37,12 @@ const TableRow = ({ assistant, eventId, firebase }) => {
           <Table.Cell><Input name="cellphone" value={formData.cellphone} onChange={handleChange} /></Table.Cell>
           <Table.Cell><Input name="email" value={formData.email} onChange={handleChange} /></Table.Cell>
           <Table.Cell>
-            <button type="submit" className="ui button" onClick={() => { editAssistant(firebase, formData, eventId); setIsEditable(false) }}>Guardar</button><button className="ui button" onClick={() => setIsEditable(false)}>Cancelar</button>
+            <button type="submit" className="ui button" onClick={() => { editAssistant(firebase, formData, eventId); setIsEditable(false) }}>
+                Guardar
+            </button>
+            <button className="ui button" onClick={() => setIsEditable(false)}>
+                Cancelar
+            </button>
           </Table.Cell>
         </Table.Row>
       )
