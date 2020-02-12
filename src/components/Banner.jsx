@@ -11,11 +11,14 @@ const BannerComponent = () => {
           </Grid.Column>
           <Grid.Column>
             <Header>
+
               <br></br>
-              <h2>Trabajando con corazón  <Icon name="heart" size="small" /></h2>
+              <font color="#1e636d">
+              <h2>Entrega de Beneficipos Municipales  </h2>
               <Header.Subheader>
-                <h3>Entrega de Beneficios Municipales</h3>
+              <font color="#1e636d"> <h3>Trabajando con corazón<Icon name="heart" size="small" /></h3></font>
               </Header.Subheader>
+              </font>
             </Header>
           </Grid.Column>
         </Grid.Row>
