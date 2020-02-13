@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Checkbox, Icon, Table, Segment, Input } from 'semantic-ui-react';
+import { Button, Checkbox, Icon, Table, Segment, Input, Radio } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import { getAssistantsForEvent, editAssistant } from '../firebase';
 
 const TableRow = ({ assistant, eventId, firebase }) => {
   const [isEditable, setIsEditable] = React.useState(false);
+  const [call, setCall] = React.useState();
   const [formData, setFormData] = React.useState({
     ...assistant
   })
@@ -24,6 +25,11 @@ const TableRow = ({ assistant, eventId, firebase }) => {
         <Table.Cell>{formData.cellphone}</Table.Cell>
         <Table.Cell>{formData.email}</Table.Cell>
         <Table.Cell><button className="ui button" onClick={() => setIsEditable(true)}>Editar</button></Table.Cell>
+        <Table.Cell>
+              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
+              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
+              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
+            </Table.Cell>
       </Table.Row>
     ) : (
         <Table.Row>
@@ -44,6 +50,11 @@ const TableRow = ({ assistant, eventId, firebase }) => {
                 Cancelar
             </button>
           </Table.Cell>
+          <Table.Cell>
+              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
+              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
+              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
+            </Table.Cell>
         </Table.Row>
       )
   )
@@ -60,6 +71,10 @@ const DataTable = (props) => {
 
   return (
     <Segment>
+      <Input onChange={async (event) => {
+        const results = await getAssistantsForEvent(props.firebaseApp, event.target.value)
+        setAssistants(results);
+      }}/> 
       <Table compact celled definition className="ui editable table">
         <Table.Header fullWidth>
           <Table.Row>
@@ -71,6 +86,7 @@ const DataTable = (props) => {
             <Table.HeaderCell>Celular</Table.HeaderCell>
             <Table.HeaderCell>Correo electrónico</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
+            <Table.HeaderCell>Llamada</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 

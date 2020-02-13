@@ -47,11 +47,14 @@ export const getEvents = async (firebaseApp) => {
     return events;
 }
 
-export const getAssistantsForEvent = async (firebaseApp, eventId = 'E92jBGTqn1DhuT26w2Qj') => {
+export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventId = 'E92jBGTqn1DhuT26w2Qj') => {
     if (!firebaseApp) {
         return
     }
-    const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    let query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    if (searchTerm) {
+        query = query.where('firstName', 'array-contains', searchTerm)
+    }
     const snapshot = await query.get()
     return snapshot.docs.map(
         doc => doc.data()
@@ -68,5 +71,6 @@ export const updateEvent = (eventId, eventData) => {
 export const user = getUser();
 
 export const editAssistant = (firebaseApp, assistant, eventId) => {
-    const ref = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.id);
+    const query = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.id);
+    query.set(assistant)
 }
