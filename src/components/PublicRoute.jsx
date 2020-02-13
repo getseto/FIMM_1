@@ -13,7 +13,7 @@ function PublicRoute({ children, ...rest }) {
         ) : (
             <Redirect
               to={{
-                pathname: "/table",
+                pathname: "/events",
               }}
             />
           )
