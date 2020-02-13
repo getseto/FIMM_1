@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Switch
 } from "react-router-dom";
 
 import BannerComponent from "./components/Banner";
 import Subbanner from './components/subbanner';
 import Footer from './components/footer';
-import ButtonsGrid from './components/buttons_grid';
-import { logIn } from './firebase';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
+import { initFirebase } from './firebase';
+import LogOut from './components/LogOut';
+import LogIn from './components/LogIn';
+import DataTable from './pages/table';
+import './App.css';
 
 function App() {
   useEffect(() => {
@@ -31,22 +34,9 @@ function App() {
           </PrivateRoute>
         </Switch>
       </div>
-          <Footer></Footer>
-          {/* //  Aqui empieza la pagina de admin home */}
+      <Footer />
+    </Router>
 
-          <BannerComponent></BannerComponent>
-          <Subbanner></Subbanner>
-          <ButtonsGrid></ButtonsGrid>      
-         <Footer></Footer>
-         <Divider/>
-        </div>
-    </div>
-
-
-
-
-
-
-      );
-    }
-    export default App;
+  );
+}
+export default App;
