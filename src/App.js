@@ -13,7 +13,9 @@ import { initFirebase } from './firebase';
 import LogOut from './components/LogOut';
 import LogIn from './components/LogIn';
 import DataTable from './pages/table';
+import Calltable from './components/Ctable';
 import './App.css';
+
 
 function App() {
   useEffect(() => {
@@ -30,6 +32,11 @@ function App() {
           <PrivateRoute path="/table">
             <Subbanner />
             <DataTable />
+            <LogOut />
+          </PrivateRoute>
+          <PrivateRoute path="/Ctable">
+            <Subbanner />
+            <Calltable />
             <LogOut />
           </PrivateRoute>
         </Switch>
