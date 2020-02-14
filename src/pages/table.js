@@ -30,11 +30,6 @@ const TableRow = ({ assistant, eventId, firebase }) => {
           <Radio label='Numero equivocado' defaultChecked={formData.call === 'equivocado'} onClick={() => setCall('equivocado')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'equivocado' }, eventId) }} />
         </Table.Cell>
         <Table.Cell><button className="ui button" onClick={() => setIsEditable(true)}>Editar</button></Table.Cell>
-        <Table.Cell>
-              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
-              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
-              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
-            </Table.Cell>
       </Table.Row>
     ) : (
         <Table.Row>
@@ -60,11 +55,6 @@ const TableRow = ({ assistant, eventId, firebase }) => {
               Cancelar
             </button>
           </Table.Cell>
-          <Table.Cell>
-              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
-              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
-              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
-            </Table.Cell>
         </Table.Row>
       )
   )
@@ -98,7 +88,6 @@ const DataTable = (props) => {
             <Table.HeaderCell>Correo electrónico</Table.HeaderCell>
             <Table.HeaderCell>Llamada</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Llamada</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
