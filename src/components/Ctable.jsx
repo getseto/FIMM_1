@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button, Checkbox, Icon, Table, Segment, Radio } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
