@@ -52,13 +52,23 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
         return
     }
     let query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    let snapshot
     if (searchTerm) {
-        query = query.where('firstName', 'array-contains', searchTerm)
+        const data = (await query.where('firstName', '==', searchTerm).get()).docs.map(doc => doc.data())
+        data.push(...(await query.where('lastName', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('curp', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('email', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('phone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('cellphone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        return data;
+    } else {
+        snapshot = await query.get()
+        return snapshot.docs.map(
+            doc => doc.data()
+        )
     }
-    const snapshot = await query.get()
-    return snapshot.docs.map(
-        doc => doc.data()
-    )
+    console.log(snapshot.docs);
+    
 }
 export const saveEvent = (event) => {
     const query = firebase.firestore().collection('/event')

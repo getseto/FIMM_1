@@ -24,12 +24,12 @@ const TableRow = ({ assistant, eventId, firebase }) => {
         <Table.Cell>{formData.phone}</Table.Cell>
         <Table.Cell>{formData.cellphone}</Table.Cell>
         <Table.Cell>{formData.email}</Table.Cell>
-        <Table.Cell><button className="ui button" onClick={() => setIsEditable(true)}>Editar</button></Table.Cell>
         <Table.Cell>
-              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
-              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
-              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
-            </Table.Cell>
+          <Radio label='Contesto' defaultChecked={formData.call === 'contesto'} onClick={() => setCall('contesto')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'contesto' }, eventId) }} />
+          <Radio label='No contesto' defaultChecked={formData.call === 'no contesto'} onClick={() => setCall('no contesto')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'no contesto' }, eventId) }} />
+          <Radio label='Numero equivocado' defaultChecked={formData.call === 'equivocado'} onClick={() => setCall('equivocado')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'equivocado' }, eventId) }} />
+        </Table.Cell>
+        <Table.Cell><button className="ui button" onClick={() => setIsEditable(true)}>Editar</button></Table.Cell>
       </Table.Row>
     ) : (
         <Table.Row>
@@ -43,18 +43,18 @@ const TableRow = ({ assistant, eventId, firebase }) => {
           <Table.Cell><Input name="cellphone" value={formData.cellphone} onChange={handleChange} /></Table.Cell>
           <Table.Cell><Input name="email" value={formData.email} onChange={handleChange} /></Table.Cell>
           <Table.Cell>
-            <button type="submit" className="ui button" onClick={() => { editAssistant(firebase, formData, eventId); setIsEditable(false) }}>
-                Guardar
-            </button>
-            <button className="ui button" onClick={() => setIsEditable(false)}>
-                Cancelar
-            </button>
+            <Radio label='Contesto' defaultChecked={formData.call === 'contesto'} onClick={() => setCall('contesto')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'contesto' }, eventId) }} />
+            <Radio label='No contesto' defaultChecked={formData.call === 'no contesto'} onClick={() => setCall('no contesto')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'no contesto' }, eventId) }} />
+            <Radio label='Numero equivocado' defaultChecked={formData.call === 'equivocado'} onClick={() => setCall('equivocado')} onChange={(event, { checked }) => { checked && editAssistant(firebase, { ...formData, call: 'equivocado' }, eventId) }} />
           </Table.Cell>
           <Table.Cell>
-              <Radio label='Contesto' checked={call  === 'contesto'} onClick={() => setCall('contesto')} />
-              <Radio label='No contesto' checked={call  === 'no contesto'} onClick={() => setCall('no contesto')} />
-              <Radio label='Numero equivocado' checked={call  === 'equivocado'} onClick={() => setCall('equivocado')} />
-            </Table.Cell>
+            <button type="submit" className="ui button" onClick={() => { editAssistant(firebase, formData, eventId); setIsEditable(false) }}>
+              Guardar
+            </button>
+            <button className="ui button" onClick={() => setIsEditable(false)}>
+              Cancelar
+            </button>
+          </Table.Cell>
         </Table.Row>
       )
   )
@@ -71,10 +71,11 @@ const DataTable = (props) => {
 
   return (
     <Segment>
-      <Input onChange={async (event) => {
+      <Input onChange={ async (event) => {
         const results = await getAssistantsForEvent(props.firebaseApp, event.target.value)
         setAssistants(results);
-      }}/> 
+        console.log(results)
+      }} />
       <Table compact celled definition className="ui editable table">
         <Table.Header fullWidth>
           <Table.Row>
@@ -85,8 +86,8 @@ const DataTable = (props) => {
             <Table.HeaderCell>Teléfono</Table.HeaderCell>
             <Table.HeaderCell>Celular</Table.HeaderCell>
             <Table.HeaderCell>Correo electrónico</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
             <Table.HeaderCell>Llamada</Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -105,7 +106,7 @@ const DataTable = (props) => {
         <Table.Footer fullWidth>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell colSpan='7'>
+            <Table.HeaderCell colSpan='8'>
               <Button
                 floated='right'
                 icon
