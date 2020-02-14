@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch
@@ -20,9 +20,7 @@ import Calltable from './components/Ctable';
 import Newevent from './components/Newevent';
 
 function App() {
-  useEffect(() => {
-    initFirebase()
-  })
+  let firebaseApp = initFirebase()
   return (
     <Router>
       <div>
@@ -45,7 +43,7 @@ function App() {
           <PrivateRoute path="/table">
             <Subbanner />
             <Search/>
-            <DataTable />
+            <DataTable firebaseApp={firebaseApp} />
             <LogOut />
           </PrivateRoute>
 
