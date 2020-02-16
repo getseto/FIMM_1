@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 const Buttonimport = () => (
     <Container>
         <div>
-            <Button class="ui button" floated='right'>
+            <Button className="ui button" floated='right'>
                 <Icon name='file excel' />
                 Importar
             </Button>

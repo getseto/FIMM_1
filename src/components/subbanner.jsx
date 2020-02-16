@@ -9,18 +9,12 @@ const Subbanner = () => {
       <Grid columns={3} divided>
         <Grid.Row verticalAlign="middle">
           <Grid.Column textAlign="left">
-          <Button size="large" inverted  basic color='facebook'><Icon name="home"/>Inicio</Button>
-        
+            <Button size="large" inverted basic color='facebook'><Icon name="home" />Inicio</Button>
           </Grid.Column>
           <Grid.Column>
-           {/* <Icon.Group as="h3" size='large'>
-              <Icon name="search" /> Buscar <Input size="mini" placeholder='Busca aquí' />
-  </Icon.Group>*/}
-
-
           </Grid.Column>
           <Grid.Column textAlign="right">
-            <LogOut/>
+            <LogOut />
           </Grid.Column>
         </Grid.Row>
       </Grid>
