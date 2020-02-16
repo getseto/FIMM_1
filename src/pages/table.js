@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, Checkbox, Icon, Table, Segment, Input, Radio, Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 import Search from '../components/Search';
-import { editAssistant } from '../firebase';
+import { editAssistant, addAssistant } from '../firebase';
+import NewEvent from '../components/NewEvent';
 
 const TableRow = ({ assistant, eventId, firebase }) => {
     const [isEditable, setIsEditable] = React.useState(false);
@@ -87,7 +88,6 @@ const TableRow = ({ assistant, eventId, firebase }) => {
 
 const DataTable = (props) => {
     const [assistants, setAssistants] = React.useState([])
-
     return (
         <Segment>
             <Container textAlign="center">
@@ -110,43 +110,53 @@ const DataTable = (props) => {
                         <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
+                {!!assistants.length &&
+                    <>
+                        <Table.Body>
+                            {
+                                assistants.map((assistant, index) => {
+                                    // mandar eventID como prop a este componente (DataTable)
+                                    return (
+                                        <TableRow
+                                            key={assistant.id + index}
+                                            assistant={assistant}
+                                            eventId={'E92jBGTqn1DhuT26w2Qj'}
+                                            firebase={props.firebaseApp} />
+                                    )
+                                })
+                            }
 
-                <Table.Body>
-                    {
-                        assistants.map((assistant, index) => {
-                            // mandar eventID como prop a este componente (DataTable)
-                            return (
-                                <TableRow
-                                    key={assistant.id + index}
-                                    assistant={assistant}
-                                    eventId={'E92jBGTqn1DhuT26w2Qj'}
-                                    firebase={props.firebaseApp} />
-                            )
-                        })
-                    }
-
-                </Table.Body>
-
-                <Table.Footer fullWidth>
-                    <Table.Row>
-                        <Table.HeaderCell />
-                        <Table.HeaderCell colSpan='8'>
-                            <Button
-                                floated='right'
-                                icon
-                                labelPosition='left'
-                                primary
-                                size='small'
-                            >
-                                <Icon name='save' /> Guardar
-                            </Button>
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Footer>
+                        </Table.Body>
+                        <Table.Footer fullWidth>
+                            <Table.Row>
+                                <Table.HeaderCell />
+                                <Table.HeaderCell colSpan='8'>
+                                    <Button
+                                        floated='right'
+                                        icon
+                                        labelPosition='left'
+                                        primary
+                                        size='small'
+                                    >
+                                        <Icon name='save' /> Guardar
+                                    </Button>
+                                </Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Footer>
+                    </>
+                }
             </Table>
+            {!assistants.length &&
+                <Container>
+                    <NewEvent 
+                        firebaseApp={props.firebaseApp}
+                        eventId={'E92jBGTqn1DhuT26w2Qj'}
+                        setAssistants={setAssistants}
+                    />
+                </Container>
+            }
         </Segment>
     )
-
 }
 
 export default DataTable;

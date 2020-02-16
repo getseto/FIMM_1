@@ -60,13 +60,21 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
     } else {
         snapshot = await query.get()
         return snapshot.docs.map(
-            doc => doc.data()
+            doc => ({ id: doc.id, ...doc.data()})
         )
     }
 }
 export const saveEvent = (event) => {
     const query = firebase.firestore().collection('/event')
-    query.add(event)
+    const result = query.add(event);
+    return result;
+}
+export const addAssistantsToEvent = async (eventId, assistants) => {
+    const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    await assistants.map(assitant => {
+        query.add(assitant)
+    })
+
 }
 export const updateEvent = (eventId, eventData) => {
     const query = firebase.firestore().collection('/event').doc(eventId)
@@ -77,4 +85,11 @@ export const user = getUser();
 export const editAssistant = (firebaseApp, assistant, eventId) => {
     const query = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.id);
     query.set(assistant)
+}
+export const addAssistant = async (firebaseApp, assistants, eventId) => {
+    const query = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants')
+    await Promise.all(assistants.map((assistant) => {
+        return query.add(assistant)
+    }))
+    return true;
 }

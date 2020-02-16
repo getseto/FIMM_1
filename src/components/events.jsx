@@ -17,7 +17,7 @@ import {
   Container
 } from 'semantic-ui-react'
 
-const Attend_call = () => {
+const EventList = ({firebaseApp}) => {
   const history = useHistory()
   return (
     <Router>
@@ -61,4 +61,4 @@ const Attend_call = () => {
   )
 }
 
-export default Attend_call
+export default EventList;

@@ -13,4 +13,4 @@ const Buttonimport = () => (
     </Container>
 )
 
-export default Buttonimport
+export default ButtonImport;

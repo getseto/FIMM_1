@@ -13,8 +13,8 @@ import LogOut from './components/LogOut';
 import LogIn from './components/LogIn';
 import DataTable from './pages/table';
 import './App.css';
-import Attend_call from './components/Events';
-import Newevent from './components/NewEvent';
+import EventList from './components/Events';
+import NewEvent from './components/NewEvent';
 
 function App() {
   let firebaseApp = initFirebase()
@@ -28,7 +28,7 @@ function App() {
           </PublicRoute>
           <PrivateRoute path="/events">
             <Subbanner />
-            <Attend_call />
+            <EventList firebaseApp={firebaseApp} />
             <LogOut />
           </PrivateRoute>
           <PrivateRoute path="/table">
@@ -38,7 +38,7 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/newevent">
             <Subbanner />
-            <Newevent />
+            <NewEvent firebaseApp={firebaseApp} />
             <LogOut />
           </PrivateRoute>
         </Switch>
