@@ -1,56 +1,33 @@
 import React from 'react'
-import { Button, Input, Form, Container } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
-import { addAssistant, getAssistantsForEvent } from '../firebase'
+import { useHistory } from "react-router-dom";
+import { Form, Segment, Button } from 'semantic-ui-react'
+import { saveEvent } from '../firebase';
 
-
-
-const NewEvent = ({firebaseApp, eventId, setAssistants}) => {
-    const [newAssistants, setNewAssistants] = React.useState()
-    const handleReadFile = (file) => {
-        const fileString = file.target.result;
-        const rows = fileString.split('\n');
-        const results = rows.map(row => {
-            const assistantRow = row.split(',');
-            return {
-                firstName: assistantRow[0],
-                lastName: assistantRow[1],
-                curp: assistantRow[2],
-                phone: assistantRow[3],
-                cellphone: assistantRow[4],
-                email: assistantRow[5],
-                call: '',
-                attended: false,
-            }
-        });
-        setNewAssistants(results);
+const NewEvent = ({ firebaseApp }) => {
+    const history = useHistory()
+    const [newEvent, setNewEvent] = React.useState()
+    const handleChange = (e) => {
+        setNewEvent({ ...newEvent, [e.target.name]: e.target.value })
     }
-        return (
-            <Container>
-                <Form>
-                    <Form.Field>
-                        <label>Agregar asistentes</label>
-                    </Form.Field>
-                    <Form.Field>
-                        <Input
-                            type="file"
-                            accept=".csv"
-                            onChange={(event) => {
-                                const fileReader = new FileReader()
-                                fileReader.onloadend = handleReadFile
-                                fileReader.readAsText(event.target.files[0])
-                            }
-                            } />
-                    </Form.Field>
-                    <Button type='submit' onClick={async () => { 
-                        await addAssistant(firebaseApp, newAssistants, eventId); 
-                        const results = await getAssistantsForEvent(firebaseApp, null, eventId)
-                        setAssistants(results);
-                    }} >Agregar asistentes</Button>
+    
+    return (
+        <Segment>
+            <Form>
+                <Form.Field>
+                    <label>Nombre del evento</label>
+                    <input placeholder='Nombre del evento' name='name' onChange={handleChange} />
+                </Form.Field>
+                <Form.Field>
+                    <label>Fecha del evento</label>
+                    <input placeholder='Fecha de creación' name='date' onChange={handleChange} />
+                </Form.Field>
+                <Button type='submit' onClick={ async () => {
+                    await saveEvent(firebaseApp, newEvent);
+                    history.push('/events');
+                }} >Crear evento</Button>
+            </Form>
+        </Segment>
+    )
+}
 
-                </Form>
-            </Container>
-        )
-    }
-
-    export default NewEvent;
+export default NewEvent;

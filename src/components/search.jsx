@@ -5,7 +5,7 @@ import { getAssistantsForEvent} from '../firebase';
 const Search = (props) => {
     React.useEffect(() => {
         (async () => {
-            const results = await getAssistantsForEvent(props.firebaseApp)
+            const results = await getAssistantsForEvent(props.firebaseApp, '', props.eventId)
             props.setAssistants(results);
         })()
     }, [props.firebaseApp])
@@ -15,7 +15,7 @@ const Search = (props) => {
             <Icon.Group as="h3" size='large'>
                 <Icon name="search" /> Buscar
                 <Input size="mini" placeholder='Busca aquí' onChange={async (event) => {
-                    const results = await getAssistantsForEvent(props.firebaseApp, event.target.value)
+                    const results = await getAssistantsForEvent(props.firebaseApp, event.target.value, props.eventId)
                     props.setAssistants(results);
                 }} />
             </Icon.Group>

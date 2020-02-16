@@ -39,11 +39,11 @@ export const getEvents = async (firebaseApp) => {
     const query = firebaseApp.firestore().collection('/event')
     const snapshot = await query.get()
     const events = snapshot.docs.map(
-        doc => doc.data()
-    )
+        doc => ({ id: doc.id, ...doc.data()})
+    ) 
     return events;
 }
-export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventId = 'E92jBGTqn1DhuT26w2Qj') => {
+export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventId) => {
     if (!firebaseApp) {
         return
     }
@@ -64,10 +64,9 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
         )
     }
 }
-export const saveEvent = (event) => {
-    const query = firebase.firestore().collection('/event')
-    const result = query.add(event);
-    return result;
+export const saveEvent = async (firebaseApp, event) => {
+    const query = firebaseApp.firestore().collection('/event')
+    return query.add({ ...event, status: 'Activo', created_by: 'Getsemani Tapia' })
 }
 export const addAssistantsToEvent = async (eventId, assistants) => {
     const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
