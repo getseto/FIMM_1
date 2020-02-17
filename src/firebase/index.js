@@ -51,7 +51,8 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
     let snapshot
     if (searchTerm) {
         const data = (await query.where('firstName', '==', searchTerm).get()).docs.map(doc => doc.data())
-        // data.push(...(await query.where('lastName', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('lastName1', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('lastName2', '==', searchTerm).get()).docs.map(doc => doc.data()))
         // data.push(...(await query.where('curp', '==', searchTerm).get()).docs.map(doc => doc.data()))
         // data.push(...(await query.where('email', '==', searchTerm).get()).docs.map(doc => doc.data()))
         // data.push(...(await query.where('phone', '==', searchTerm).get()).docs.map(doc => doc.data()))

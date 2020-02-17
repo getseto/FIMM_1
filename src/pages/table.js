@@ -22,7 +22,8 @@ const TableRow = ({ assistant, eventId, firebase }) => {
                     <Checkbox slider defaultChecked={formData.attended} onChange={(event, { checked }) => { editAssistant(firebase, { ...formData, attended: checked }, eventId) }} />
                 </Table.Cell>
                 <Table.Cell>{formData.firstName}</Table.Cell>
-                <Table.Cell>{formData.lastName}</Table.Cell>
+                <Table.Cell>{formData.lastName1}</Table.Cell>
+                <Table.Cell>{formData.lastName2}</Table.Cell>
                 <Table.Cell>{formData.curp}</Table.Cell>
                 <Table.Cell>{formData.phone}</Table.Cell>
                 <Table.Cell>{formData.cellphone}</Table.Cell>
@@ -64,7 +65,8 @@ const TableRow = ({ assistant, eventId, firebase }) => {
                         <Checkbox slider />
                     </Table.Cell>
                     <Table.Cell><Input name="firstName" defaultValue={formData.firstName} onChange={handleChange} /></Table.Cell>
-                    <Table.Cell><Input name="lastName" value={formData.lastName} onChange={handleChange} /></Table.Cell>
+                    <Table.Cell><Input name="lastName1" value={formData.lastName1} onChange={handleChange} /></Table.Cell>
+                    <Table.Cell><Input name="lastName2" value={formData.lastName2} onChange={handleChange} /></Table.Cell>
                     <Table.Cell><Input name="curp" value={formData.curp} onChange={handleChange} /></Table.Cell>
                     <Table.Cell><Input name="phone" value={formData.phone} onChange={handleChange} /></Table.Cell>
                     <Table.Cell><Input name="cellphone" value={formData.cellphone} onChange={handleChange} /></Table.Cell>
@@ -104,7 +106,8 @@ const DataTable = (props) => {
                     <Table.Row>
                         <Table.HeaderCell> Asistencia </Table.HeaderCell>
                         <Table.HeaderCell>Nombre</Table.HeaderCell>
-                        <Table.HeaderCell>Apellidos</Table.HeaderCell>
+                        <Table.HeaderCell>Apellido Pat</Table.HeaderCell>
+                        <Table.HeaderCell>Apellido Mat</Table.HeaderCell>
                         <Table.HeaderCell>CURP</Table.HeaderCell>
                         <Table.HeaderCell>Teléfono</Table.HeaderCell>
                         <Table.HeaderCell>Celular</Table.HeaderCell>

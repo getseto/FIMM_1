@@ -10,15 +10,17 @@ const AddAssistants = ({ firebaseApp, eventId, setAssistants }) => {
     const handleReadFile = (file) => {
         const fileString = file.target.result;
         const rows = fileString.split('\n');
-        const results = rows.map(row => {
+        rows.shift()
+        const results = rows.map((row) => {
             const assistantRow = row.split(',');
             return {
-                firstName: assistantRow[0],
-                lastName: assistantRow[1],
-                curp: assistantRow[2],
-                phone: assistantRow[3],
+                curp: assistantRow[0],
+                firstName: assistantRow[1],
+                lastName1: assistantRow[2],
+                lastName2: assistantRow[3],
                 cellphone: assistantRow[4],
-                email: assistantRow[5],
+                phone: assistantRow[5],
+                email: assistantRow[6],
                 call: '',
                 attended: false,
             }
