@@ -19,7 +19,11 @@ const NewEvent = ({ firebaseApp }) => {
                 </Form.Field>
                 <Form.Field>
                     <label>Fecha del evento</label>
-                    <input placeholder='Fecha de creación' name='date' onChange={handleChange} />
+                    <input placeholder='dd/mm/aaaa' name='date' onChange={handleChange} />
+                </Form.Field>
+                <Form.Field>
+                    <label>Creado por</label>
+                    <input placeholder='Creado por' name='created_by' onChange={handleChange} />
                 </Form.Field>
                 <Button type='submit' onClick={ async () => {
                     await saveEvent(firebaseApp, newEvent);

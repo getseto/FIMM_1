@@ -51,12 +51,12 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
     let snapshot
     if (searchTerm) {
         const data = (await query.where('firstName', '==', searchTerm).get()).docs.map(doc => doc.data())
-        // data.push(...(await query.where('lastName1', '==', searchTerm).get()).docs.map(doc => doc.data()))
-        // data.push(...(await query.where('lastName2', '==', searchTerm).get()).docs.map(doc => doc.data()))
-        // data.push(...(await query.where('curp', '==', searchTerm).get()).docs.map(doc => doc.data()))
-        // data.push(...(await query.where('email', '==', searchTerm).get()).docs.map(doc => doc.data()))
-        // data.push(...(await query.where('phone', '==', searchTerm).get()).docs.map(doc => doc.data()))
-        // data.push(...(await query.where('cellphone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('lastName1', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('lastName2', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('curp', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('email', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('phone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        data.push(...(await query.where('cellphone', '==', searchTerm).get()).docs.map(doc => doc.data()))
         return data;
     } else {
         snapshot = await query.get()
@@ -67,7 +67,7 @@ export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventI
 }
 export const saveEvent = async (firebaseApp, event) => {
     const query = firebaseApp.firestore().collection('/event')
-    return query.add({ ...event, status: 'Activo', created_by: 'Getsemani Tapia' })
+    return query.add({ ...event, status: 'Activo'})
 }
 export const addAssistantsToEvent = async (eventId, assistants) => {
     const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
