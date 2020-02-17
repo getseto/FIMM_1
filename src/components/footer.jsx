@@ -11,14 +11,10 @@ const Footer = () => {
                         <font color="#1e636d"> <p> 2020 - ZapAcademy</p> </font>
                     </Grid.Column>
                     <Grid.Column>
-                        
-                        <Image src={coloreszap}  class="ui medium centered image"/> 
-
+                        <Image src={coloreszap} className="ui medium centered image" />
                     </Grid.Column>
-
                     <Grid.Column textAlign='right'>
                         <font color="#1e636d">
-                            
                             <p>
                                 Municipio de Zapopan, Jalisco
                                 Avenida Hidalgo 151, Zapopan, 45100 Zapopan, Jal.

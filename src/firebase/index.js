@@ -10,12 +10,9 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_APP_ID,
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
-
-
 export const initFirebase = () => {
     return firebase.initializeApp(firebaseConfig);
 }
-
 export const getUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 }
@@ -25,7 +22,7 @@ export const logIn = (history) => {
         localStorage.setItem('accessToken', JSON.stringify(result.credential.accessToken));
         localStorage.setItem('idToken', JSON.stringify(result.credential.idToken));
         localStorage.setItem('user', JSON.stringify(result.user));
-        history.push('/table')
+        history.push('/')
 
     }).catch(function (error) {
         console.error(error);
@@ -42,27 +39,42 @@ export const getEvents = async (firebaseApp) => {
     const query = firebaseApp.firestore().collection('/event')
     const snapshot = await query.get()
     const events = snapshot.docs.map(
-        doc => doc.data()
-    )
+        doc => ({ id: doc.id, ...doc.data()})
+    ) 
     return events;
 }
-
-export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventId = 'E92jBGTqn1DhuT26w2Qj') => {
+export const getAssistantsForEvent = async (firebaseApp, searchTerm = '', eventId) => {
     if (!firebaseApp) {
         return
     }
     let query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    let snapshot
     if (searchTerm) {
-        query = query.where('firstName', 'array-contains', searchTerm)
+        const data = (await query.where('firstName', '==', searchTerm).get()).docs.map(doc => doc.data())
+        // data.push(...(await query.where('lastName1', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('lastName2', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('curp', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('email', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('phone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        // data.push(...(await query.where('cellphone', '==', searchTerm).get()).docs.map(doc => doc.data()))
+        return data;
+    } else {
+        snapshot = await query.get()
+        return snapshot.docs.map(
+            doc => ({ id: doc.id, ...doc.data()})
+        )
     }
-    const snapshot = await query.get()
-    return snapshot.docs.map(
-        doc => doc.data()
-    )
 }
-export const saveEvent = (event) => {
-    const query = firebase.firestore().collection('/event')
-    query.add(event)
+export const saveEvent = async (firebaseApp, event) => {
+    const query = firebaseApp.firestore().collection('/event')
+    return query.add({ ...event, status: 'Activo', created_by: 'Getsemani Tapia' })
+}
+export const addAssistantsToEvent = async (eventId, assistants) => {
+    const query = firebase.firestore().collection('/event').doc(eventId).collection('assistants')
+    await assistants.map(assitant => {
+        query.add(assitant)
+    })
+
 }
 export const updateEvent = (eventId, eventData) => {
     const query = firebase.firestore().collection('/event').doc(eventId)
@@ -73,4 +85,11 @@ export const user = getUser();
 export const editAssistant = (firebaseApp, assistant, eventId) => {
     const query = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants').doc(assistant.id);
     query.set(assistant)
+}
+export const addAssistant = async (firebaseApp, assistants, eventId) => {
+    const query = firebaseApp.firestore().collection('/event').doc(eventId).collection('assistants')
+    await Promise.all(assistants.map((assistant) => {
+        return query.add(assistant)
+    }))
+    return true;
 }
