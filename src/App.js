@@ -20,6 +20,7 @@ function App() {
   let firebaseApp = initFirebase()
   return (
     <Router>
+      <div>
       <BannerComponent />
       <Switch>
         <PublicRoute path="/login">
@@ -30,7 +31,7 @@ function App() {
           <DataTable firebaseApp={firebaseApp} />
           <LogOut />
         </PrivateRoute>
-        <PrivateRoute exact path="/events">
+        <PrivateRoute exact path={["/", "/events"]}>
           <Subbanner />
           <EventList firebaseApp={firebaseApp} />
           <LogOut />
@@ -41,6 +42,7 @@ function App() {
           <LogOut />
         </PrivateRoute>
       </Switch>
+      </div>
       <Footer />
     </Router>
 

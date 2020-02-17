@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory, Link } from "react-router-dom";
-import { Table, Segment } from 'semantic-ui-react'
+import { Table, Segment, Button } from 'semantic-ui-react'
 import { getEvents } from '../firebase';
 
 const EventList = ({ firebaseApp }) => {
@@ -20,7 +20,7 @@ const EventList = ({ firebaseApp }) => {
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Nombre del evento</Table.HeaderCell>
-          <Table.HeaderCell>Fecha de creación</Table.HeaderCell>
+          <Table.HeaderCell>Fecha del evento</Table.HeaderCell>
           <Table.HeaderCell>Creado por</Table.HeaderCell>
           <Table.HeaderCell>Estatus</Table.HeaderCell>
           <Table.HeaderCell></Table.HeaderCell>
@@ -48,9 +48,9 @@ const EventList = ({ firebaseApp }) => {
         })}
       </Table.Body>
     </Table>
-    {/* <Button onClick=>{} >
+   <Button onClick = {() =>history.push('/newevent')} >
       Crear nuevo evento
-    </Button> */}
+    </Button>
     </Segment>
   )
 }

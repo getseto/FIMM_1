@@ -13,8 +13,7 @@ const Search = (props) => {
     return (
         <Container textAlign="center">
             <Icon.Group as="h3" size='large'>
-                <Icon name="search" /> Buscar
-                <Input size="mini" placeholder='Busca aquí' onChange={async (event) => {
+                <Input style={{borderRadius: '8px'}} size="mini" placeholder='Busca aquí'className='prompt' onChange={async (event) => {
                     const results = await getAssistantsForEvent(props.firebaseApp, event.target.value, props.eventId)
                     props.setAssistants(results);
                 }} />

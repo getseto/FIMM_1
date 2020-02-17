@@ -3,7 +3,6 @@ import { Checkbox, Table, Segment, Input, Radio, Container } from 'semantic-ui-r
 import 'semantic-ui-css/semantic.min.css'
 import Search from '../components/Search';
 import { editAssistant } from '../firebase';
-import NewEvent from '../components/AddAssitants';
 import { useParams } from 'react-router-dom';
 import AddAssistants from '../components/AddAssitants';
 
